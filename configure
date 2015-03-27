@@ -1,0 +1,2 @@
+--with-xterm=xfce4-terminal
+--with-xinitdir=/usr/share/defaults/xinit
