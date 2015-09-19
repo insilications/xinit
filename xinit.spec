@@ -4,7 +4,7 @@
 #
 Name     : xinit
 Version  : 1.3.4
-Release  : 4
+Release  : 5
 URL      : http://xorg.freedesktop.org/releases/individual/app/xinit-1.3.4.tar.gz
 Source0  : http://xorg.freedesktop.org/releases/individual/app/xinit-1.3.4.tar.gz
 Summary  : No detailed summary available
@@ -17,6 +17,7 @@ BuildRequires : openssl-dev
 BuildRequires : pkgconfig(x11)
 BuildRequires : pkgconfig(xorg-macros)
 BuildRequires : pkgconfig(xproto)
+Patch1: starxfce4.patch
 
 %description
 The xinit program is used to start the X Window System server and a first
@@ -49,13 +50,17 @@ doc components for the xinit package.
 
 %prep
 %setup -q -n xinit-1.3.4
+%patch1 -p1
 
 %build
 %configure --disable-static --with-xterm=xfce4-terminal \
 --with-xinitdir=/usr/share/defaults/xinit
-make V=1 %{?_smp_mflags}
+make V=1  %{?_smp_mflags}
 
 %check
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
