@@ -24,7 +24,7 @@ index 14d3cbc..69491a1 100644
 +# Try GNOME Shell if installed
 +if [ -x /usr/bin/gnome-shell ]; then
 +    export XDG_CURRENT_DESKTOP="GNOME"
-+    exec gnome-session
++    exec gnome-session  --session=gnome-flashback-metacity
 +fi
 +
 +
