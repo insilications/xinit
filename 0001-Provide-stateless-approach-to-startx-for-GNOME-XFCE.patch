@@ -23,7 +23,7 @@ index 14d3cbc..69491a1 100644
 -exec XTERM -geometry 80x66+0+0 -name login
 +# Try GNOME Shell if installed
 +if [ -x /usr/bin/gnome-shell ]; then
-+    export XDG_CURRENT_DESKTOP="GNOME"
++    export XDG_CURRENT_DESKTOP="GNOME-Flashback"
 +    exec gnome-session  --session=gnome-flashback-metacity
 +fi
 +

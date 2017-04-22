@@ -6,7 +6,7 @@
 #
 Name     : xinit
 Version  : 1.3.4
-Release  : 11
+Release  : 12
 URL      : http://xorg.freedesktop.org/releases/individual/app/xinit-1.3.4.tar.gz
 Source0  : http://xorg.freedesktop.org/releases/individual/app/xinit-1.3.4.tar.gz
 Source99 : http://xorg.freedesktop.org/releases/individual/app/xinit-1.3.4.tar.gz.sig
@@ -60,7 +60,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1492810916
+export SOURCE_DATE_EPOCH=1492824766
 %configure --disable-static --with-xterm=xfce4-terminal \
 --with-xinitdir=/usr/share/defaults/xinit
 make V=1  %{?_smp_mflags}
@@ -73,7 +73,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1492810916
+export SOURCE_DATE_EPOCH=1492824766
 rm -rf %{buildroot}
 %make_install
 
