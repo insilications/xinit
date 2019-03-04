@@ -5,17 +5,18 @@
 # Source0 file verified with key 0xCFDF148828C642A7 (alanc@freedesktop.org)
 #
 Name     : xinit
-Version  : 1.4.0
-Release  : 16
-URL      : https://xorg.freedesktop.org/releases/individual/app/xinit-1.4.0.tar.gz
-Source0  : https://xorg.freedesktop.org/releases/individual/app/xinit-1.4.0.tar.gz
-Source99 : https://xorg.freedesktop.org/releases/individual/app/xinit-1.4.0.tar.gz.sig
+Version  : 1.4.1
+Release  : 17
+URL      : https://xorg.freedesktop.org/releases/individual/app/xinit-1.4.1.tar.gz
+Source0  : https://xorg.freedesktop.org/releases/individual/app/xinit-1.4.1.tar.gz
+Source99 : https://xorg.freedesktop.org/releases/individual/app/xinit-1.4.1.tar.gz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : MIT
-Requires: xinit-bin
-Requires: xinit-data
-Requires: xinit-doc
+Requires: xinit-bin = %{version}-%{release}
+Requires: xinit-data = %{version}-%{release}
+Requires: xinit-license = %{version}-%{release}
+Requires: xinit-man = %{version}-%{release}
 BuildRequires : pkgconfig(x11)
 BuildRequires : pkgconfig(xorg-macros)
 BuildRequires : pkgconfig(xproto)
@@ -28,7 +29,8 @@ client program on systems that are not using a display manager such as xdm.
 %package bin
 Summary: bin components for the xinit package.
 Group: Binaries
-Requires: xinit-data
+Requires: xinit-data = %{version}-%{release}
+Requires: xinit-license = %{version}-%{release}
 
 %description bin
 bin components for the xinit package.
@@ -42,16 +44,24 @@ Group: Data
 data components for the xinit package.
 
 
-%package doc
-Summary: doc components for the xinit package.
-Group: Documentation
+%package license
+Summary: license components for the xinit package.
+Group: Default
 
-%description doc
-doc components for the xinit package.
+%description license
+license components for the xinit package.
+
+
+%package man
+Summary: man components for the xinit package.
+Group: Default
+
+%description man
+man components for the xinit package.
 
 
 %prep
-%setup -q -n xinit-1.4.0
+%setup -q -n xinit-1.4.1
 %patch1 -p1
 
 %build
@@ -59,7 +69,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1522112079
+export SOURCE_DATE_EPOCH=1551715626
 %configure --disable-static --with-xterm=xfce4-terminal \
 --with-xinitdir=/usr/share/defaults/xinit
 make  %{?_smp_mflags}
@@ -72,8 +82,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1522112079
+export SOURCE_DATE_EPOCH=1551715626
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/xinit
+cp COPYING %{buildroot}/usr/share/package-licenses/xinit/COPYING
 %make_install
 
 %files
@@ -88,6 +100,11 @@ rm -rf %{buildroot}
 %defattr(-,root,root,-)
 /usr/share/defaults/xinit/xinitrc
 
-%files doc
-%defattr(-,root,root,-)
-%doc /usr/share/man/man1/*
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/xinit/COPYING
+
+%files man
+%defattr(0644,root,root,0755)
+/usr/share/man/man1/startx.1
+/usr/share/man/man1/xinit.1
