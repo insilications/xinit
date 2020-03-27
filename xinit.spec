@@ -6,7 +6,7 @@
 #
 Name     : xinit
 Version  : 1.4.1
-Release  : 18
+Release  : 19
 URL      : https://xorg.freedesktop.org/releases/individual/app/xinit-1.4.1.tar.gz
 Source0  : https://xorg.freedesktop.org/releases/individual/app/xinit-1.4.1.tar.gz
 Source99 : https://xorg.freedesktop.org/releases/individual/app/xinit-1.4.1.tar.gz.sig
