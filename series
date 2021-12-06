@@ -1,1 +1,3 @@
 0001-Provide-stateless-approach-to-startx-for-GNOME-XFCE.patch
+xinit-1.4.0-startx-current-vt.patch
+xinit-1.4.1-move-serverauthfile-into-tmp.patch
