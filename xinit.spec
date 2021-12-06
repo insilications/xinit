@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : xinit
 Version  : 7.1
-Release  : 503
+Release  : 504
 URL      : file:///aot/build/clearlinux/packages/xinit/xinit-v7.1.tar.gz
 Source0  : file:///aot/build/clearlinux/packages/xinit/xinit-v7.1.tar.gz
 Summary  : No detailed summary available
@@ -22,6 +22,7 @@ BuildRequires : pkgconfig(xproto)
 %define debug_package %{nil}
 Patch1: 0001-Provide-stateless-approach-to-startx-for-GNOME-XFCE.patch
 Patch2: xinit-1.4.1-move-serverauthfile-into-tmp.patch
+Patch3: 0001-Remove-unset-DBUS_SESSION_BUS_ADDRESS.patch
 
 %description
 The xinit program is used to start the X Window System server and a first
@@ -57,6 +58,7 @@ man components for the xinit package.
 cd %{_builddir}/xinit
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 unset http_proxy
@@ -64,7 +66,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1638795960
+export SOURCE_DATE_EPOCH=1638796537
 export GCC_IGNORE_WERROR=1
 ## altflags1 content
 export CFLAGS="-g3 -ggdb -Ofast --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -flimit-function-alignment -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -fexceptions -static-libstdc++ -static-libgcc -Wl,--build-id=sha1"
@@ -146,7 +148,7 @@ make  %{?_smp_mflags}    V=1 VERBOSE=1
 
 
 %install
-export SOURCE_DATE_EPOCH=1638795960
+export SOURCE_DATE_EPOCH=1638796537
 rm -rf %{buildroot}
 %make_install
 
