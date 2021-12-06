@@ -1,2 +1,3 @@
---with-xterm=xfce4-terminal
+--disable-shared
+--enable-static
 --with-xinitdir=/usr/share/defaults/xinit

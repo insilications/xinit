@@ -1,5 +1,6 @@
 PKG_NAME := xinit
-URL = https://xorg.freedesktop.org/releases/individual/app/xinit-1.4.1.tar.gz
+URL = https://gitlab.freedesktop.org/xorg/app/xinit.git
 ARCHIVES = 
+ARCHIVES_GIT = 
 
 include ../common/Makefile.common
