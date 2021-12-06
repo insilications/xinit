@@ -1,18 +1,18 @@
-From 510caf5a48d5b305a9a45b5342a8fd96fff2de4b Mon Sep 17 00:00:00 2001
+From 48ee2899262982c0f450243e3482e446321604e0 Mon Sep 17 00:00:00 2001
 From: Ikey Doherty <michael.i.doherty@intel.com>
 Date: Fri, 21 Apr 2017 21:57:43 +0100
-Subject: [PATCH] Provide stateless approach to startx for GNOME/XFCE
+Subject: [PATCH app/xinit] Provide stateless approach to startx for GNOME/XFCE
 
 Signed-off-by: Ikey Doherty <michael.i.doherty@intel.com>
 ---
- xinitrc.cpp | 22 +++++++++++++++++-----
- 1 file changed, 17 insertions(+), 5 deletions(-)
+ xinitrc.cpp | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
 
 diff --git a/xinitrc.cpp b/xinitrc.cpp
-index 14d3cbc..69491a1 100644
+index 14d3cbc..2887769 100644
 --- a/xinitrc.cpp
 +++ b/xinitrc.cpp
-@@ -48,8 +48,20 @@ if [ -d XINITDIR/xinitrc.d ] ; then
+@@ -48,8 +48,18 @@ if [ -d XINITDIR/xinitrc.d ] ; then
  	unset f
  fi
  
@@ -21,14 +21,12 @@ index 14d3cbc..69491a1 100644
 -XTERM -geometry 80x50+494+51 &
 -XTERM -geometry 80x20+494-0 &
 -exec XTERM -geometry 80x66+0+0 -name login
-+# Try GNOME Shell if installed
 +if [ -x /usr/bin/gnome-shell ]; then
 +    export XDG_CURRENT_DESKTOP="GNOME-Flashback"
 +    exec gnome-session  --session=gnome-flashback-metacity
 +fi
 +
 +
-+# Try XFCE instead (during migration)
 +if [ -x /usr/bin/startxfce4 ] ; then
 +    exec startxfce4
 +fi
@@ -39,5 +37,5 @@ index 14d3cbc..69491a1 100644
 +echo "    swupd bundle-add desktop"
 +echo "    swupd update"
 -- 
-2.12.2
+2.34.0
 

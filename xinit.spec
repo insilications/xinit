@@ -5,12 +5,15 @@
 %define keepstatic 1
 Name     : xinit
 Version  : 7.1
-Release  : 502
+Release  : 503
 URL      : file:///aot/build/clearlinux/packages/xinit/xinit-v7.1.tar.gz
 Source0  : file:///aot/build/clearlinux/packages/xinit/xinit-v7.1.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0
+Requires: xinit-bin = %{version}-%{release}
+Requires: xinit-data = %{version}-%{release}
+Requires: xinit-man = %{version}-%{release}
 BuildRequires : pkgconfig(x11)
 BuildRequires : pkgconfig(xorg-macros)
 BuildRequires : pkgconfig(xproto)
@@ -24,6 +27,31 @@ Patch2: xinit-1.4.1-move-serverauthfile-into-tmp.patch
 The xinit program is used to start the X Window System server and a first
 client program on systems that are not using a display manager such as xdm.
 
+%package bin
+Summary: bin components for the xinit package.
+Group: Binaries
+Requires: xinit-data = %{version}-%{release}
+
+%description bin
+bin components for the xinit package.
+
+
+%package data
+Summary: data components for the xinit package.
+Group: Data
+
+%description data
+data components for the xinit package.
+
+
+%package man
+Summary: man components for the xinit package.
+Group: Default
+
+%description man
+man components for the xinit package.
+
+
 %prep
 %setup -q -n xinit
 cd %{_builddir}/xinit
@@ -36,7 +64,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1638795646
+export SOURCE_DATE_EPOCH=1638795960
 export GCC_IGNORE_WERROR=1
 ## altflags1 content
 export CFLAGS="-g3 -ggdb -Ofast --param=lto-max-streaming-parallelism=16 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -mprefer-vector-width=256 -falign-functions=32 -flimit-function-alignment -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -floop-block -fno-math-errno -fno-semantic-interposition -Wl,-Bsymbolic-functions -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-slp-vectorize -ftree-vectorize -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flto=auto -fno-plt -mtls-dialect=gnu2 -Wl,-sort-common -Wno-error -Wp,-D_REENTRANT -pipe -ffat-lto-objects -fPIC -fomit-frame-pointer -fexceptions -static-libstdc++ -static-libgcc -Wl,--build-id=sha1"
@@ -118,9 +146,23 @@ make  %{?_smp_mflags}    V=1 VERBOSE=1
 
 
 %install
-export SOURCE_DATE_EPOCH=1638795646
+export SOURCE_DATE_EPOCH=1638795960
 rm -rf %{buildroot}
 %make_install
 
 %files
 %defattr(-,root,root,-)
+
+%files bin
+%defattr(-,root,root,-)
+/usr/bin/startx
+/usr/bin/xinit
+
+%files data
+%defattr(-,root,root,-)
+/usr/share/defaults/xinit/xinitrc
+
+%files man
+%defattr(0644,root,root,0755)
+/usr/share/man/man1/startx.1
+/usr/share/man/man1/xinit.1
