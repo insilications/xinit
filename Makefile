@@ -1,5 +1,5 @@
 PKG_NAME := xinit
-URL = https://gitlab.freedesktop.org/xorg/app/xinit.git
+URL = /insilications/build/git-clr/xinit-clr
 ARCHIVES = 
 ARCHIVES_GIT = 
 
