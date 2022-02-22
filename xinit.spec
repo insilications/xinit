@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : xinit
 Version  : 7.1
-Release  : 508
+Release  : 509
 URL      : file:///aot/build/clearlinux/packages/xinit/xinit-v7.1.tar.gz
 Source0  : file:///aot/build/clearlinux/packages/xinit/xinit-v7.1.tar.gz
 Summary  : No detailed summary available
@@ -60,7 +60,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1645573268
+export SOURCE_DATE_EPOCH=1645573522
 export GCC_IGNORE_WERROR=1
 ## altflags_pgo content
 ## pgo generate
@@ -136,21 +136,21 @@ export DESKTOP_SESSION=plasma
 sd -r '\s--dirty\s' ' ' .
 sd -r 'git describe' 'git describe --abbrev=0' .
 
-echo PGO Phase 1
-export CFLAGS="${CFLAGS_GENERATE}"
-export CXXFLAGS="${CXXFLAGS_GENERATE}"
-export FFLAGS="${FFLAGS_GENERATE}"
-export FCFLAGS="${FCFLAGS_GENERATE}"
-export LDFLAGS="${LDFLAGS_GENERATE}"
-export ASMFLAGS="${ASMFLAGS_GENERATE}"
-export LIBS="${LIBS_GENERATE}"
-%autogen  --disable-shared \
+echo PGO Phase 2
+export CFLAGS="${CFLAGS_USE}"
+export CXXFLAGS="${CXXFLAGS_USE}"
+export FFLAGS="${FFLAGS_USE}"
+export FCFLAGS="${FCFLAGS_USE}"
+export LDFLAGS="${LDFLAGS_USE}"
+export ASMFLAGS="${ASMFLAGS_USE}"
+export LIBS="${LIBS_USE}"
+ %autogen --disable-shared \
 --enable-static \
 --with-xinitdir=/usr/share/defaults/xinit
 make  %{?_smp_mflags}    V=1 VERBOSE=1
 
 %install
-export SOURCE_DATE_EPOCH=1645573268
+export SOURCE_DATE_EPOCH=1645573522
 rm -rf %{buildroot}
 export GCC_IGNORE_WERROR=1
 ## altflags_pgo content
@@ -224,13 +224,13 @@ export QT_FONT_DPI=88
 export GTK_USE_PORTAL=1
 export DESKTOP_SESSION=plasma
 ## altflags_pgo end
-export CFLAGS="${CFLAGS_GENERATE}"
-export CXXFLAGS="${CXXFLAGS_GENERATE}"
-export FFLAGS="${FFLAGS_GENERATE}"
-export FCFLAGS="${FCFLAGS_GENERATE}"
-export LDFLAGS="${LDFLAGS_GENERATE}"
-export ASMFLAGS="${ASMFLAGS_GENERATE}"
-export LIBS="${LIBS_GENERATE}"
+export CFLAGS="${CFLAGS_USE}"
+export CXXFLAGS="${CXXFLAGS_USE}"
+export FFLAGS="${FFLAGS_USE}"
+export FCFLAGS="${FCFLAGS_USE}"
+export LDFLAGS="${LDFLAGS_USE}"
+export ASMFLAGS="${ASMFLAGS_USE}"
+export LIBS="${LIBS_USE}"
 %make_install
 
 %files
