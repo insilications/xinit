@@ -11,6 +11,9 @@ Source0  : file:///aot/build/clearlinux/packages/xinit/xinit-v7.1.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0
+Requires: xinit-bin = %{version}-%{release}
+Requires: xinit-data = %{version}-%{release}
+Requires: xinit-man = %{version}-%{release}
 BuildRequires : pkgconfig(x11)
 BuildRequires : pkgconfig(xorg-macros)
 BuildRequires : pkgconfig(xproto)
@@ -22,6 +25,31 @@ BuildRequires : pkgconfig(xproto)
 The xinit program is used to start the X Window System server and a first
 client program on systems that are not using a display manager such as xdm.
 
+%package bin
+Summary: bin components for the xinit package.
+Group: Binaries
+Requires: xinit-data = %{version}-%{release}
+
+%description bin
+bin components for the xinit package.
+
+
+%package data
+Summary: data components for the xinit package.
+Group: Data
+
+%description data
+data components for the xinit package.
+
+
+%package man
+Summary: man components for the xinit package.
+Group: Default
+
+%description man
+man components for the xinit package.
+
+
 %prep
 %setup -q -n xinit-clr
 cd %{_builddir}/xinit-clr
@@ -32,7 +60,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1645573217
+export SOURCE_DATE_EPOCH=1645573268
 export GCC_IGNORE_WERROR=1
 ## altflags_pgo content
 ## pgo generate
@@ -122,7 +150,7 @@ export LIBS="${LIBS_GENERATE}"
 make  %{?_smp_mflags}    V=1 VERBOSE=1
 
 %install
-export SOURCE_DATE_EPOCH=1645573217
+export SOURCE_DATE_EPOCH=1645573268
 rm -rf %{buildroot}
 export GCC_IGNORE_WERROR=1
 ## altflags_pgo content
@@ -207,3 +235,17 @@ export LIBS="${LIBS_GENERATE}"
 
 %files
 %defattr(-,root,root,-)
+
+%files bin
+%defattr(-,root,root,-)
+/usr/bin/startx
+/usr/bin/xinit
+
+%files data
+%defattr(-,root,root,-)
+/usr/share/defaults/xinit/xinitrc
+
+%files man
+%defattr(0644,root,root,0755)
+/usr/share/man/man1/startx.1
+/usr/share/man/man1/xinit.1
